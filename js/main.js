@@ -15,6 +15,7 @@ const randomFunc = {
   symbol: getRandomSymbol,
 };
 
+// Gnerate event listen on click
 generateEl.addEventListener('click', () => {
   // String to number with + prefix
   const length = +lengthEl.value;
@@ -23,8 +24,33 @@ generateEl.addEventListener('click', () => {
   const hasNumber = numbersEl.checked;
   const hasSymbol = symbolsEl.checked;
 
-  console.log(length, hasLower, hasUpper, hasNumber, hasSymbol);
+  resultEl.innerText = generatePassword(
+    hasLower,
+    hasUpper,
+    hasNumber,
+    hasSymbol,
+    length,
+  );
 });
+
+// Generate password function
+function generatePassword(upper, lower, number, symbol) {
+  // Initialize password variable
+  // Filter out unchecked types
+  // Loop over the length
+  // Add final pw to the pw and return it
+
+  let generatedPassword = '';
+  const typesCount = upper + lower + number + symbol;
+
+  console.log('typesCount: ', typesCount);
+
+  const typesArr = [{ upper }, { lower }, { number }, { symbol }].filter(
+    element => Object.values(element)[0],
+  );
+
+  console.log('typesArray', typesArr);
+}
 
 // Generator functions
 // See chars at http://net-comber.com/charset.html String.fromCharCode(97)
