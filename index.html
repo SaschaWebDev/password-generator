@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <script
+      src="https://kit.fontawesome.com/3da1a747b2.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="css/main.css" />
+    <title>Password Generator</title>
+  </head>
+  <body>
+    <div class="container">
+      <h2 class="unselectable">Password Generator</h2>
+      <div class="result-container">
+        <span id="result"></span>
+        <button class="btn" id="clipboard">
+          <i class="far fa-clone"></i>
+        </button>
+      </div>
+      <div class="settings">
+        <div class="setting">
+          <label class="unselectable"
+            >Password length (<span id="pwlength">20</span>)</label
+          >
+          <div class="slidecontainer">
+            <input
+              type="range"
+              id="length"
+              min="4"
+              max="40"
+              value="20"
+              class="slider"
+              id="myRange"
+            />
+          </div>
+          <!-- <input type="number" id="length" min="4" max="40" value="20" /> -->
+        </div>
+        <div class="setting">
+          <label class="unselectable">Include uppercase letters</label>
+          <label class="switch"
+            ><input type="checkbox" id="uppercase" checked />
+            <div></div>
+          </label>
+        </div>
+        <div class="setting">
+          <label class="unselectable">Include lowercase letters</label>
+          <label class="switch"
+            ><input type="checkbox" id="lowercase" checked />
+            <div></div>
+          </label>
+        </div>
+        <div class="setting">
+          <label class="unselectable">Include numbers</label>
+          <label class="switch"
+            ><input type="checkbox" id="numbers" checked />
+            <div></div>
+          </label>
+        </div>
+        <div class="setting">
+          <label class="unselectable">Include symbols</label>
+          <label class="switch"
+            ><input type="checkbox" id="symbols" checked />
+            <div></div>
+          </label>
+        </div>
+      </div>
+      <button class="btn btn-large unselectable" id="generate">
+        Generate Password
+      </button>
+    </div>
+
+    <script src="js/main.js"></script>
+  </body>
+</html>
