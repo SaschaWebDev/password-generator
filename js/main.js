@@ -25,16 +25,16 @@ generateEl.addEventListener('click', () => {
   const hasSymbol = symbolsEl.checked;
 
   resultEl.innerText = generatePassword(
-    hasLower,
     hasUpper,
+    hasLower,
     hasNumber,
     hasSymbol,
     length,
   );
 });
 
-// Generate password function
-function generatePassword(upper, lower, number, symbol) {
+// Generate password functions
+function generatePassword(upper, lower, number, symbol, length) {
   // Initialize password variable
   // Filter out unchecked types
   // Loop over the length
@@ -43,13 +43,26 @@ function generatePassword(upper, lower, number, symbol) {
   let generatedPassword = '';
   const typesCount = upper + lower + number + symbol;
 
-  console.log('typesCount: ', typesCount);
-
   const typesArr = [{ upper }, { lower }, { number }, { symbol }].filter(
     element => Object.values(element)[0],
   );
 
-  console.log('typesArray', typesArr);
+  return typesCount === 0
+    ? ''
+    : generation(typesCount, typesArr, length, generatedPassword).slice(
+        0,
+        length,
+      );
+}
+
+function generation(typesCount, typesArr, length, generatedPassword) {
+  for (let i = 0; i < length; i += typesCount) {
+    typesArr.forEach(type => {
+      const funcName = Object.keys(type)[0];
+      generatedPassword += randomFunc[funcName]();
+    });
+  }
+  return generatedPassword;
 }
 
 // Generator functions
