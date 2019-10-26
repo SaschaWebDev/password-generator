@@ -7,12 +7,30 @@ const numbersEl = document.getElementById('numbers');
 const symbolsEl = document.getElementById('symbols');
 const generateEl = document.getElementById('generate');
 const clipboardEl = document.getElementById('clipboard');
+const pwlengthEl = document.getElementById('pwlength');
 
 const randomFunc = {
   lower: getRandomLower,
   upper: getRandomUpper,
   number: getRandomNumber,
   symbol: getRandomSymbol,
+};
+
+window.onload = () => {
+  // String to number with + prefix
+  const length = +lengthEl.value;
+  const hasUpper = uppercaseEl.checked;
+  const hasLower = lowercaseEl.checked;
+  const hasNumber = numbersEl.checked;
+  const hasSymbol = symbolsEl.checked;
+
+  resultEl.innerText = generatePassword(
+    hasUpper,
+    hasLower,
+    hasNumber,
+    hasSymbol,
+    length,
+  );
 };
 
 // Gnerate event listen on click
@@ -33,13 +51,26 @@ generateEl.addEventListener('click', () => {
   );
 });
 
+lengthEl.addEventListener('input', () => {
+  pwlengthEl.innerText = +lengthEl.value;
+
+  const length = +lengthEl.value;
+  const hasUpper = uppercaseEl.checked;
+  const hasLower = lowercaseEl.checked;
+  const hasNumber = numbersEl.checked;
+  const hasSymbol = symbolsEl.checked;
+
+  resultEl.innerText = generatePassword(
+    hasUpper,
+    hasLower,
+    hasNumber,
+    hasSymbol,
+    length,
+  );
+});
+
 // Generate password functions
 function generatePassword(upper, lower, number, symbol, length) {
-  // Initialize password variable
-  // Filter out unchecked types
-  // Loop over the length
-  // Add final pw to the pw and return it
-
   let generatedPassword = '';
   const typesCount = upper + lower + number + symbol;
 
@@ -48,7 +79,7 @@ function generatePassword(upper, lower, number, symbol, length) {
   );
 
   return typesCount === 0
-    ? ''
+    ? 'what did you expect?'
     : generation(typesCount, typesArr, length, generatedPassword).slice(
         0,
         length,
@@ -64,6 +95,23 @@ function generation(typesCount, typesArr, length, generatedPassword) {
   }
   return generatedPassword;
 }
+
+// Copy password to clip
+clipboardEl.addEventListener('click', () => {
+  const textarea = document.createElement('textarea');
+  const password = resultEl.innerText;
+
+  if (!password) {
+    return;
+  } else {
+    textarea.value = password;
+    document.body.appendChild(textarea);
+    textarea.select();
+    document.execCommand('copy');
+    textarea.remove();
+    alert('Password copied to clipboard');
+  }
+});
 
 // Generator functions
 // See chars at http://net-comber.com/charset.html String.fromCharCode(97)
